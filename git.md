@@ -66,6 +66,75 @@
 
 
 
+### pull
+
+**fetch**
+
+`git fetch`执行后完成两个步骤：
+
+1. 从远程仓库下载本地仓库中缺失的提交记录
+2. 更新远程分支指针（如origin/master）
+
+即git fetch实际上将本地仓库中的远程分支更新成了远程仓库相应分支最新的状态
+
+注意：
+
+git fetch并不会改变你本地仓库的状态，也不会修改你磁盘上的文件，git fetch为单纯的下载操作。
+
+`git fetch origin/master` + `git merge origin/master` = `git pull`：下载并更新为远程仓库的内容，即同步
+
+git fetch 的参数
+类似于git push的参数方法，git fetch的参数非常类似，他们的概念是相同的，方向是相反的（此处为下载而非上传）
+
+\<place>参数
+
+git fetch origin \<place>：从远程\<place>分支上拉取到本地对应的分支上
+
+
+执行git fetch origin foo命令后，会从远程foo分支下载，并更新本地的o/foo分支，没有更新本地的非远程分支foo
+
+\<source>:\<destation>参数
+
+命令能够直接更新本地分支，不过不能在检出当前分支上干这件事，在其他分支上可以。fetch的两个参数与git push是正好相反的：
+
+\<source>指的是远程仓库中的位置
+\<destation>是要放置提交的本地仓库的位置
+
+
+执行 git fetch origin foo~1:bar，Git将foo~1解析成一个 origin 仓库的位置，然后将那些提交记录下载到了本地的 bar 分支（一个本地分支）上。注意由于我们指定了目标分支，foo 和 o/foo 都没有被更新：
+
+
+如果目标分支不存在，即本地分支不存在目标分支情况，会和 git push 一样，Git 会在 fetch 前自己创建立本地分支, 就像是 Git 在 push 时，如果远程仓库中不存在目标分支，会自己在建立一样。
+
+**pull**
+
+> git pull 其实就是fetch 后面跟merge的缩写，可以理解为使用同样的参数执行git fetch，然后再merge你所抓到的提交记录
+
+参数
+只有\<place>参数：
+
+git pull origin foo相当于：
+
+git fetch origin foo; git merge o/foo
+
+有\<source>和\<destation>参数：
+
+git pull origin bar~1:bugFix相当于：
+
+git fetch origin bar~1:bugFix; git merge bugFix，注意：可不在bugFix分支
+
+例子
+初始状态：注意本地在master分支上
+
+
+目标状态：
+
+
+执行 git pull origin bar:foo，从远程分支上bar拉取更新的到本地，并创建本地分支foo，同时将该分支合并到master分支上：
+
+
+执行 git pull origin master:side，从远程分支上master拉取更新的到本地，并创建本地分支side，同时将该分支合并到master分支上：
+
 
 
 
@@ -85,4 +154,10 @@
 
 * `git pull origin master` 时 `fatal: refusing to merge unrelated histories`
   * `git pull origin master –allow-unrelated-histories`
+
+* `Fatal: fatal: unable to access 'https://github.com/xxx': OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443`
+
+  * `git config --global --add remote.origin.proxy ""`
+
+  
 
