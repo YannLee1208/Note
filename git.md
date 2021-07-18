@@ -52,6 +52,52 @@
 
 ### 分支
 
+**分支类型**
+
+Local Branch
+
+运行`git branch`以下命令查看计算机上所有本地分支的列表
+
+每个本地分支在`.git/refs/heads/`以下位置都有一个文件
+
+```shell
+$ ls -F .git/refs/heads/
+master new-feature
+```
+
+**非跟踪本地分支与跟踪本地分支**
+
+> 非跟踪本地分支不与任何其他分支关联。您可以通过运行创建一个`git branch <branchname>`。跟踪本地分支与另一个分支（通常是远程跟踪分支）相关联。您可以通过运行创建一个`git branch --track <branchname> [<start-point>]`。
+
+使用以下命令查看本地分支中的哪一个正在跟踪分支`git branch -vv`：
+
+```
+$ git branch -vv
+master      b31f87c85 [origin/master] Example commit message
+new-feature b760e04ed Another example commit message
+```
+
+跟踪本地分支机构很有用。它们允许运行`git pull`和`git push`，而**无需指定使用哪个上游分支**。如果未将分支设置为跟踪另一个分支，则会收到类似以下的错误：
+
+**远程跟踪分支**
+
+通过运行`git branch -r`以下命令查看计算机上所有远程跟踪分支的列表：
+
+```
+$ git branch -r
+bitbucket/master
+origin/master
+origin/new-branch
+```
+
+您可以通过运行`git remote show <remote>`以下命令查看所有远程分支（即，远程计算机上的分支）：
+
+
+
+
+
+**命令**
+
 `git branch (branchname)` ： 创建分支
 
 `git branch ` : 列出所有分支.  `git init` 的时候默认创建 `main` 分支
@@ -139,7 +185,7 @@ git fetch origin bar~1:bugFix; git merge bugFix，注意：可不在bugFix分支
 
 
 
-### 问题
+### Bug
 
 * `failed to push some refs to  https://github.com/xxx.git`
   * 如果在创建远程仓库的时候，勾选了Initialize this repository with a README（就是创建仓库的时候自动给你创建一个README文件, 那么在push的时候就会报错
