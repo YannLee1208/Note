@@ -161,3 +161,13 @@ git fetch origin bar~1:bugFix; git merge bugFix，注意：可不在bugFix分支
 
   
 
+* ```
+  error: Pulling is not possible because you have unmerged files.
+  hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+  hint: as appropriate to mark resolution and make a commit.
+  fatal: Exiting because of an unresolved conflict.
+  ```
+
+  * `git commit -m "resolved merge conflicts"`
+  * 然后再push
+
